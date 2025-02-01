@@ -1,9 +1,8 @@
 import streamlit as st
-import pandas as pd
 from datetime import datetime, timedelta
 from services.yahoofinance import YahooFinance
-from yahoo_fin import stock_info as si
 import yfinance as yf
+from services.sentimentAnalyzer import SentimentAnalyzer
 
 st.markdown(
     r"""
@@ -37,6 +36,39 @@ if ticker:
     stock_data = yf_service.get_stock_data(ticker, start=start_date.strftime('%Y-%m-%d'), end=end_date.strftime('%Y-%m-%d'))
     st.write(f"## {ticker} Stock Data")
     st.line_chart(stock_data['Close'])
+
+    # Sentiment analysis
+    st.write("## Sentiment Analysis")
+    test_string = "I am happy"
+    sentiment_analyzer = SentimentAnalyzer()
+    sentiment = sentiment_analyzer.analyze_sentiment(test_string)
+
+    if sentiment == 'Positive':
+        sentiment_score = 1.0
+        sentiment_color = "green"
+    elif sentiment == 'Neutral':
+        sentiment_score = 0.5
+        sentiment_color = "yellow"
+    else:
+        sentiment_score = 0.0
+        sentiment_color = "red"
+
+    st.markdown(f"""
+        <div style="display: flex; justify-content: space-between;">
+            <span>{"<b style='font-size: 1.5em;'>😢 Negative</b>" if sentiment == 'Negative' else "😢 Negative"}</span>
+            <span>{"<b style='font-size: 1.5em;'>😐 Neutral</b>" if sentiment == 'Neutral' else "😢 Neutral"}</span>
+            <span>{"<b style='font-size: 1.5em;'>😊 Positive</b>" if sentiment == 'Positive' else "😢 Positive"}</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+        <style>
+        .st-cb {{
+            background-color: {sentiment_color};
+        }}
+        </style>
+        """, unsafe_allow_html=True)
+    st.progress(sentiment_score)
 
     # Fetch news regarding data and display
     ticker_obj = yf.Ticker(ticker)
