@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from services.yahoofinance import YahooFinance
 import yfinance as yf
 from services.sentimentAnalyzer import SentimentAnalyzer
+from modules.chatbot import chatbot
 
 st.markdown(
     r"""
@@ -119,6 +120,8 @@ if ticker:
         cols = st.columns(3)
         for col, news in zip(cols, news_data[i:i+3]):
             content = news['content']
+            print('dfsdfsd')
+            print(content)
             thumbnail_url = content['thumbnail']['resolutions'][0]['url']
             title = content['title']
             summary = content['summary']
@@ -139,3 +142,5 @@ if ticker:
                 
 else:
     st.write("No ticker selected.")
+
+chatbot(f"Answer my questions based on the {ticker} stock data given here: {stock_data} and news data given here: {news_data}")
