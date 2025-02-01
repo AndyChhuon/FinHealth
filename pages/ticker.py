@@ -1,9 +1,8 @@
 import streamlit as st
-import pandas as pd
 from datetime import datetime, timedelta
 from services.yahoofinance import YahooFinance
-from yahoo_fin import stock_info as si
 import yfinance as yf
+from services.sentimentAnalyzer import SentimentAnalyzer
 
 st.markdown(
     r"""
@@ -42,6 +41,38 @@ if ticker:
     ticker_obj = yf.Ticker(ticker)
     news_data = ticker_obj.get_news()
     st.write(f"## {ticker} News")
+
+    # Sentiment analysis
+    st.write("## Sentiment Analysis")
+    sentiment_analyzer = SentimentAnalyzer()
+    sentiment = sentiment_analyzer.analyze_sentiment_from_json(news_data)
+
+    if sentiment == 'Positive':
+        sentiment_score = 1.0
+        sentiment_color = "green"
+    elif sentiment == 'Neutral':
+        sentiment_score = 0.5
+        sentiment_color = "yellow"
+    else:
+        sentiment_score = 0.1
+        sentiment_color = "red"
+
+    st.markdown(f"""
+        <div style="display: flex; justify-content: space-between;">
+            <span>{"<b style='font-size: 1.5em;'>😢 Negative</b>" if sentiment == 'Negative' else "😢 Negative"}</span>
+            <span>{"<b style='font-size: 1.5em;'>😐 Neutral</b>" if sentiment == 'Neutral' else "😢 Neutral"}</span>
+            <span>{"<b style='font-size: 1.5em;'>😊 Positive</b>" if sentiment == 'Positive' else "😢 Positive"}</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+        <style>
+        .st-cb {{
+            background-color: {sentiment_color};
+        }}
+        </style>
+        """, unsafe_allow_html=True)
+    st.progress(sentiment_score)
 
     # Responsive grid for news 
     st.markdown(
@@ -83,7 +114,6 @@ if ticker:
         """,
         unsafe_allow_html=True
     )
-
     # Display in 3x3 grid
     for i in range(0, len(news_data), 3):
         cols = st.columns(3)
@@ -93,7 +123,6 @@ if ticker:
             title = content['title']
             summary = content['summary']
             link = content['canonicalUrl']['url']
-
             with col:
                 st.markdown(
                     f"""
@@ -107,5 +136,6 @@ if ticker:
                     """,
                     unsafe_allow_html=True
                 )
+                
 else:
     st.write("No ticker selected.")
