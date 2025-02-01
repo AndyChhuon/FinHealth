@@ -33,7 +33,7 @@ with open("files/company_tickers_sec.json") as f:
     
 search_query = st.text_input("Search for a stock", "")
 if search_query:
-    matching_stocks = [company for company in company_tickers if search_query.upper() in company]
+    matching_stocks = [company for company in company_tickers if search_query.lower() in company.lower()]
     if matching_stocks:
         selected_stock = st.selectbox("Select a stock", matching_stocks)
         st.link_button("Go", url=f"/ticker?name={company_tickers[selected_stock]}&startDate={start_date}&endDate={end_date}")
