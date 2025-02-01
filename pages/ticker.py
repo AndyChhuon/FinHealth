@@ -43,7 +43,48 @@ if ticker:
     news_data = ticker_obj.get_news()
     st.write(f"## {ticker} News")
 
-    # Display news in a grid with 3 items per row
+    # Responsive grid for news 
+    st.markdown(
+        """
+        <style>
+        .news-box {
+            border: 1px solid #e6e6e6;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px ;
+            height: 400px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .news-box img {
+            border-radius: 10px;
+            max-height: 150px;
+            object-fit: cover;
+        }
+        .news-box h3 {
+            color: white;
+            font-size: 1.2em;
+            margin: 5px ;
+        }
+        .news-box p {
+            color: white;
+            font-size: 1em;
+            margin: 10px 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            padding-bottom: 5px; 
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Display in 3x3 grid
     for i in range(0, len(news_data), 3):
         cols = st.columns(3)
         for col, news in zip(cols, news_data[i:i+3]):
@@ -51,29 +92,20 @@ if ticker:
             thumbnail_url = content['thumbnail']['resolutions'][0]['url']
             title = content['title']
             summary = content['summary']
-            for key in content.keys():
-                print(key)
-            print(content)
             link = content['canonicalUrl']['url']
-            if len(summary) > 250:
-                summary = summary[:250] + "..."
 
             with col:
-                print('sdfds')
-                print(content['clickThroughUrl'])
-                print(link)
                 st.markdown(
                     f"""
                     <a href="{link}" target="_blank" style="text-decoration: none;">
-                        <div style="border: 1px solid #e6e6e6; border-radius: 10px; padding: 10px; margin: 10px 0;">
-                            <img src="{thumbnail_url}" style="width: 100%; border-radius: 10px;">
-                            <h3 style="color: white;">{title}</h3>
-                            <p style="color: white;">{summary}</p>
+                        <div class="news-box">
+                            <img src="{thumbnail_url}" style="width: 100%;">
+                            <h3>{title}</h3>
+                            <p>{summary}</p>
                         </div>
                     </a>
                     """,
                     unsafe_allow_html=True
                 )
-
 else:
     st.write("No ticker selected.")
