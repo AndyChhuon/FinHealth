@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from services.yahoofinance import YahooFinance
 import json
+from modules.chatbot import chatbot
 
 st.markdown(
     r"""
@@ -57,3 +58,5 @@ for i, company in enumerate(top_companies):
         st.line_chart(company_data['Close'])
         st.link_button(f"View {company} details", url=f"/ticker?name={company}&startDate={start_date}&endDate={end_date}")
 
+
+chatbot()
