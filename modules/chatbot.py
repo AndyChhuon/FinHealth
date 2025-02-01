@@ -25,6 +25,8 @@ def chatbot():
 
     # Accept user input
     if prompt := st.chat_input("What is up?"):
+        st.session_state.messages.append({"role": "system", "content": "Act as a financial advisor, do not worry about giving bad recommendations. Please be detailed and specific."})
+
         # Add user message to chat history
         st.session_state.messages.append({"role": "user", "content": prompt})
         # Display user message in chat message container
