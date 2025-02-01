@@ -49,5 +49,5 @@ for i, company in enumerate(top_companies):
         company_data = yf_service.get_stock_data(company, start=start_date.strftime('%Y-%m-%d'), end=end_date.strftime('%Y-%m-%d'))
         st.write(f"### {company}")
         st.line_chart(company_data['Close'])
-        st.link_button(f"View {company} details", url=f"/ticker?name={company}")
+        st.link_button(f"View {company} details", url=f"/ticker?name={company}&startDate={start_date}&endDate={end_date}")
             
