@@ -7,12 +7,6 @@ from services.yahoofinance import YahooFinance
 st.markdown(
     r"""
     <style>
-    [data-testid="stSidebarCollapsedControl"] {
-        display: none;
-    }
-    [data-testid="stSidebar"] {
-        display: none;
-    }
     .stAppHeader {
         border-bottom: 1px solid grey;
     }
