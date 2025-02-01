@@ -37,11 +37,15 @@ if ticker:
     st.write(f"## {ticker} Stock Data")
     st.line_chart(stock_data['Close'])
 
+    # Fetch news regarding data and display
+    ticker_obj = yf.Ticker(ticker)
+    news_data = ticker_obj.get_news()
+    st.write(f"## {ticker} News")
+
     # Sentiment analysis
     st.write("## Sentiment Analysis")
-    test_string = "I am happy"
     sentiment_analyzer = SentimentAnalyzer()
-    sentiment = sentiment_analyzer.analyze_sentiment(test_string)
+    sentiment = sentiment_analyzer.analyze_sentiment_from_json(news_data)
 
     if sentiment == 'Positive':
         sentiment_score = 1.0
@@ -50,7 +54,7 @@ if ticker:
         sentiment_score = 0.5
         sentiment_color = "yellow"
     else:
-        sentiment_score = 0.0
+        sentiment_score = 0.1
         sentiment_color = "red"
 
     st.markdown(f"""
@@ -69,11 +73,6 @@ if ticker:
         </style>
         """, unsafe_allow_html=True)
     st.progress(sentiment_score)
-
-    # Fetch news regarding data and display
-    ticker_obj = yf.Ticker(ticker)
-    news_data = ticker_obj.get_news()
-    st.write(f"## {ticker} News")
 
     # Responsive grid for news 
     st.markdown(
@@ -115,7 +114,6 @@ if ticker:
         """,
         unsafe_allow_html=True
     )
-
     # Display in 3x3 grid
     for i in range(0, len(news_data), 3):
         cols = st.columns(3)
@@ -125,7 +123,6 @@ if ticker:
             title = content['title']
             summary = content['summary']
             link = content['canonicalUrl']['url']
-
             with col:
                 st.markdown(
                     f"""
@@ -139,5 +136,6 @@ if ticker:
                     """,
                     unsafe_allow_html=True
                 )
+                
 else:
     st.write("No ticker selected.")
