@@ -101,10 +101,22 @@ if ticker:
     # Fetch news regarding data and display
     ticker_obj = yf.Ticker(ticker)
     news_data = ticker_obj.get_news()
-    st.write(f"## {ticker} News")
+
+   # Buy/Sell Prediction
+    st.write("## AI Insights 🤖")
+    st.write("#### Recommended Action")
+    stock_prediction_model = StockPredictionModel(ticker)
+    prediction, accuracy = stock_prediction_model.make_prediction()
+    st.markdown(f"""
+        <div style="display: flex; justify-content: space-between;">
+            <span>{f"<b style='font-size: 1.5em; color: red;'>📉 Sell ({accuracy:.2f}%)</b>" if prediction == 'Sell' else "<div style='opacity: 0.5;'>📉 Sell</div>"}</span>
+            <span>{f"<b style='font-size: 1.5em; color: yellow;'>💎 Hold ({accuracy:.2f}%)</b>" if prediction == 'Hold' else "<div style='opacity: 0.5;'>💎 Hold</div>"}</span>
+            <span>{f"<b style='font-size: 1.5em; color: green;'>📈 Buy ({accuracy:.2f}%)</b>" if prediction == 'Buy' else "<div style='opacity: 0.5;'>📈 Buy</div>"}</span>
+        </div>
+        """, unsafe_allow_html=True)
 
     # Sentiment analysis
-    st.write("## Sentiment Analysis")
+    st.write("#### Sentiment Analysis")
     sentiment_analyzer = SentimentAnalyzer()
     sentiment = sentiment_analyzer.analyze_sentiment_from_json(news_data)
 
@@ -137,19 +149,14 @@ if ticker:
         """, unsafe_allow_html=True)
     st.progress(sentiment_score)
 
-    
-    # Buy/Sell Prediction
-    st.write("## Our Prediction")
-    stock_prediction_model = StockPredictionModel(ticker)
-    prediction, accuracy = stock_prediction_model.make_prediction()
-
-    st.markdown(f"""
-        <div style="display: flex; justify-content: space-between;">
-            <span>{f"<b style='font-size: 1.5em; color: red;'>📉 Sell ({accuracy:.2f}%)</b>" if prediction == 'Sell' else "<div style='opacity: 0.5;'>📉 Sell</div>"}</span>
-            <span>{f"<b style='font-size: 1.5em; color: yellow;'>💎 Hold ({accuracy:.2f}%)</b>" if prediction == 'Hold' else "<div style='opacity: 0.5;'>💎 Hold</div>"}</span>
-            <span>{f"<b style='font-size: 1.5em; color: green;'>📈 Buy ({accuracy:.2f}%)</b>" if prediction == 'Buy' else "<div style='opacity: 0.5;'>📈 Buy</div>"}</span>
-        </div>
-        """, unsafe_allow_html=True)
+    st.write(f"## {ticker} News")
+    # st.markdown(f"""
+    #     <div style="display: flex; justify-content: space-between;">
+    #         <span>{f"<b style='font-size: 1.5em; color: red;'>📉 Sell ({accuracy:.2f}%)</b>" if prediction == 'Sell' else "<div style='opacity: 0.5;'>📉 Sell</div>"}</span>
+    #         <span>{f"<b style='font-size: 1.5em; color: yellow;'>💎 Hold ({accuracy:.2f}%)</b>" if prediction == 'Hold' else "<div style='opacity: 0.5;'>💎 Hold</div>"}</span>
+    #         <span>{f"<b style='font-size: 1.5em; color: green;'>📈 Buy ({accuracy:.2f}%)</b>" if prediction == 'Buy' else "<div style='opacity: 0.5;'>📈 Buy</div>"}</span>
+    #     </div>
+    #     """, unsafe_allow_html=True)
 
 
 
