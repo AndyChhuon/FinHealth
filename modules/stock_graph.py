@@ -6,8 +6,9 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import pytz
 import ta
+from datetime import date
 
-def get_stock_data(symbol: str, start: str, end: str, interval: str = "1d") -> pd.DataFrame:
+def get_stock_data(symbol: str, start: str, end: str, interval) -> pd.DataFrame:
     stock = yf.Ticker(symbol)
     df = stock.history(start=start, end=end, interval=interval)
     return df
@@ -37,12 +38,26 @@ def add_technical_indicators(data):
     data['EMA_20'] = ta.trend.ema_indicator(data['Close'], window=20)
     return data
 
+def get_interval(start_date: date, end_date: date) -> str:
+    
+    period = (end_date - start_date).days
+    print(period)
+    
+    if period <= 1:
+        return '15m'
+    elif period <= 7:
+        return '30m'
+    elif period <= 32:
+        return '1d'
+    else:
+        return '1wk'
 
-
-def stock_graph(symbol: str, start: str, end: str):
+def stock_graph(symbol: str, start: date, end: date):
     st.title("Stock Graph")
 
-    data = get_stock_data(symbol=symbol, start=start, end=end)
+    interval = get_interval(start_date=start, end_date=end)
+    print(interval)
+    data = get_stock_data(symbol=symbol, start=start, end=end, interval=interval)
     data = process_data(data)
     data = add_technical_indicators(data)
     last_close, change, pct_change, high, low, volume = calculate_metrics(data)
@@ -67,7 +82,7 @@ def stock_graph(symbol: str, start: str, end: str):
                                 y=data['Close'], 
                                 mode='lines', 
                                 name="Closing Price",
-                                line=dict(color='blue', width=1)))
+                                line=dict(color='blue', width=2)))
 
     # fig = px.line(data, x='Datetime', y='Close')
     
@@ -81,7 +96,7 @@ def stock_graph(symbol: str, start: str, end: str):
                       yaxis_title='Price (USD)',
                       height=600)
     st.plotly_chart(fig, use_container_width=True)
-    
+    print(end, start)
 
 
 if __name__ == "__main__":

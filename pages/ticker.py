@@ -1,9 +1,10 @@
 import streamlit as st
 from datetime import datetime, timedelta
-from services.yahoofinance import YahooFinance
+# from services.yahoofinance import YahooFinance
 import yfinance as yf
 from services.sentimentAnalyzer import SentimentAnalyzer
 from modules.chatbot import chatbot
+from modules.stock_graph import stock_graph, get_stock_data
 
 st.markdown(
     r"""
@@ -32,11 +33,12 @@ if ticker:
     start_date = st.date_input('Start date', value=default_start_date, max_value=today)
     end_date = st.date_input('End date', value=default_end_date, max_value=today)
 
-    # Fetch and display stock data
-    yf_service = YahooFinance()
-    stock_data = yf_service.get_stock_data(ticker, start=start_date.strftime('%Y-%m-%d'), end=end_date.strftime('%Y-%m-%d'))
-    st.write(f"## {ticker} Stock Data")
-    st.line_chart(stock_data['Close'])
+    # # Fetch and display stock data
+    stock_data = get_stock_data(ticker, start=start_date.strftime('%Y-%m-%d'), end=end_date.strftime('%Y-%m-%d'), interval="1d")
+    # st.write(f"## {ticker} Stock Data")
+    # st.line_chart(stock_data['Close'])
+
+    stock_graph(symbol=ticker, start=start_date, end=end_date, )
 
     # Fetch news regarding data and display
     ticker_obj = yf.Ticker(ticker)

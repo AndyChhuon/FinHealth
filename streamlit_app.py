@@ -29,6 +29,7 @@ default_start_date = today - timedelta(days=160)
 start_date = st.date_input('Start date', value=default_start_date, max_value=today)
 end_date = st.date_input('End date', value=today, max_value=today)
 
+
 # Add a search bar with stock recommendations
 with open("files/company_tickers_sec.json") as f:
     company_tickers = json.load(f)
@@ -40,7 +41,7 @@ if search_query:
         selected_stock = st.selectbox("Select a stock", matching_stocks)
         st.link_button("Go", url=f"/ticker?name={company_tickers[selected_stock]}&startDate={start_date}&endDate={end_date}")
 
-
+stock_graph("AAPL", start_date, end_date)
 # Function to display stock data
 def display_stock_data(ticker):
     yf_service = YahooFinance()
@@ -61,4 +62,3 @@ for i, company in enumerate(top_companies):
 
 
 chatbot()
-stock_graph("AAPL", "2024-01-01", "2024-02-01")
