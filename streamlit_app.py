@@ -190,6 +190,7 @@ with stock_col:
         """, unsafe_allow_html=True)
     st.progress(sentiment_score)
 
+    st.title("Chatbot")
     chatbot(f"Answer my questions based on the {st.session_state.ticker} stock data given here: {stock_data} and news data given here: {news_data}")
 
 # ------------------------------
