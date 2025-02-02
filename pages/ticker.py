@@ -61,8 +61,8 @@ if ticker:
     st.markdown(f"""
         <div style="display: flex; justify-content: space-between;">
             <span>{"<b style='font-size: 1.5em;'>😢 Negative</b>" if sentiment == 'Negative' else "😢 Negative"}</span>
-            <span>{"<b style='font-size: 1.5em;'>😐 Neutral</b>" if sentiment == 'Neutral' else "😢 Neutral"}</span>
-            <span>{"<b style='font-size: 1.5em;'>😊 Positive</b>" if sentiment == 'Positive' else "😢 Positive"}</span>
+            <span>{"<b style='font-size: 1.5em;'>😐 Neutral</b>" if sentiment == 'Neutral' else "😐 Neutral"}</span>
+            <span>{"<b style='font-size: 1.5em;'>😊 Positive</b>" if sentiment == 'Positive' else "😊 Positive"}</span>
         </div>
         """, unsafe_allow_html=True)
 
