@@ -167,8 +167,8 @@ with stock_col:
     }
 
     # Buy/Sell Prediction
-    st.write("## AI Insights")
-    st.write("#### Predicted Action")
+    st.write("## AI Insights 🤖")
+    st.write("#### Recommended Action")
     stock_prediction_model = StockPredictionModel(st.session_state.ticker if st.session_state.ticker else "AMZN")
     prediction, accuracy = stock_prediction_model.make_prediction()
     st.markdown(f"""
