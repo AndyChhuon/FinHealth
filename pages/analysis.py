@@ -1,5 +1,6 @@
 import streamlit as st
 
+from modules.chatbot_analysis import chatbot_analysis
 from modules.chatbot import chatbot
 
 with st.sidebar:
@@ -15,7 +16,7 @@ with st.sidebar:
                 Home
             </a>
             <a class="sidebar-url" href="http://localhost:8501/analysis" target="_self" style="text-decoration: none; color: white; width: 100%;">
-                Personal Analysis
+                Analysis
             </a>
             </div>
             """,
@@ -69,7 +70,7 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True
 )
-st.title('Personal Analysis')
+st.header('Tailored investments and analysis')
 
 
 import streamlit as st
@@ -165,4 +166,4 @@ if submit_button:
 
 
 
-chatbot(prompt, submit_button)
+chatbot_analysis(prompt, submit_button)
