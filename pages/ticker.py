@@ -1,3 +1,4 @@
+from services.StockPredictionModel import StockPredictionModel
 import streamlit as st
 from datetime import datetime, timedelta
 # from services.yahoofinance import YahooFinance
@@ -135,6 +136,22 @@ if ticker:
         </style>
         """, unsafe_allow_html=True)
     st.progress(sentiment_score)
+
+    
+    # Buy/Sell Prediction
+    st.write("## Our Prediction")
+    stock_prediction_model = StockPredictionModel(ticker)
+    prediction, accuracy = stock_prediction_model.make_prediction()
+
+    st.markdown(f"""
+        <div style="display: flex; justify-content: space-between;">
+            <span>{f"<b style='font-size: 1.5em; color: red;'>📉 Sell ({accuracy:.2f}%)</b>" if prediction == 'Sell' else "<div style='opacity: 0.5;'>📉 Sell</div>"}</span>
+            <span>{f"<b style='font-size: 1.5em; color: yellow;'>💎 Hold ({accuracy:.2f}%)</b>" if prediction == 'Hold' else "<div style='opacity: 0.5;'>💎 Hold</div>"}</span>
+            <span>{f"<b style='font-size: 1.5em; color: green;'>📈 Buy ({accuracy:.2f}%)</b>" if prediction == 'Buy' else "<div style='opacity: 0.5;'>📈 Buy</div>"}</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+
 
     # Responsive grid for news 
     st.markdown(
