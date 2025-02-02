@@ -166,8 +166,22 @@ with stock_col:
         for c in top_companies
     }
 
+    # Buy/Sell Prediction
+    st.write("## AI Insights")
+    st.write("#### Predicted Action")
+    stock_prediction_model = StockPredictionModel(st.session_state.ticker if st.session_state.ticker else "AMZN")
+    prediction, accuracy = stock_prediction_model.make_prediction()
+    st.markdown(f"""
+        <div style="display: flex; justify-content: space-between;">
+            <span>{f"<b style='font-size: 1.5em; color: red;'>📉 Sell ({accuracy:.2f}%)</b>" if prediction == 'Sell' else "<div style='opacity: 0.5;'>📉 Sell</div>"}</span>
+            <span>{f"<b style='font-size: 1.5em; color: yellow;'>💎 Hold ({accuracy:.2f}%)</b>" if prediction == 'Hold' else "<div style='opacity: 0.5;'>💎 Hold</div>"}</span>
+            <span>{f"<b style='font-size: 1.5em; color: green;'>📈 Buy ({accuracy:.2f}%)</b>" if prediction == 'Buy' else "<div style='opacity: 0.5;'>📈 Buy</div>"}</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+
     # Sentiment
-    st.write("## Sentiment Analysis")
+    st.write("#### Sentiment Analysis")
     ticker_obj = yf.Ticker(st.session_state.ticker)
     news_data = ticker_obj.get_news()
 
@@ -210,19 +224,6 @@ with stock_col:
         </style>
         """, unsafe_allow_html=True)
     st.progress(sentiment_score)
-
-
-    # Buy/Sell Prediction
-    st.write("## Our Prediction")
-    stock_prediction_model = StockPredictionModel(st.session_state.ticker if st.session_state.ticker else "AMZN")
-    prediction, accuracy = stock_prediction_model.make_prediction()
-    st.markdown(f"""
-        <div style="display: flex; justify-content: space-between;">
-            <span>{f"<b style='font-size: 1.5em; color: red;'>📉 Sell ({accuracy:.2f}%)</b>" if prediction == 'Sell' else "<div style='opacity: 0.5;'>📉 Sell</div>"}</span>
-            <span>{f"<b style='font-size: 1.5em; color: yellow;'>💎 Hold ({accuracy:.2f}%)</b>" if prediction == 'Hold' else "<div style='opacity: 0.5;'>💎 Hold</div>"}</span>
-            <span>{f"<b style='font-size: 1.5em; color: green;'>📈 Buy ({accuracy:.2f}%)</b>" if prediction == 'Buy' else "<div style='opacity: 0.5;'>📈 Buy</div>"}</span>
-        </div>
-        """, unsafe_allow_html=True)
 
 
     # Conversation messages
