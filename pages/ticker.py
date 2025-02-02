@@ -119,6 +119,14 @@ if ticker:
             flex-wrap: wrap; 
             justify-content: space-between; 
         }
+        .stMarkdownContainer {
+            padding: 0;
+        }
+        .stHorizontalContainer {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: space-between; 
+        }
         </style>
         """,
         unsafe_allow_html=True
@@ -130,9 +138,6 @@ if ticker:
             content = news['content']
             # Check if there is no image 
             thumbnail_url = content['thumbnail']['resolutions'][0]['url'] if content['thumbnail'] else None
-            print('dfsdfsd')
-            print(content)
-            thumbnail_url = content['thumbnail']['resolutions'][0]['url']
             title = content['title']
             summary = content['summary']
             link = content['canonicalUrl']['url']
