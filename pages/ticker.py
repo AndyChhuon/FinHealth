@@ -6,20 +6,51 @@ from services.sentimentAnalyzer import SentimentAnalyzer
 from modules.chatbot import chatbot
 from modules.stock_graph import stock_graph, get_stock_data
 
+with st.sidebar:
+    st.logo("assets/chart_icon.png")
+    st.html(
+        ""
+    )
+    st.page_link(page='http://localhost:8501/', label="Home")
+    st.page_link(page='http://localhost:8501/analysis', label="Personal Analysis")
+
 st.markdown(
     r"""
     <style>
     .stAppHeader {
         border-bottom: 1px solid grey;
     }
+    .stAppToolbar {
+        top: 15px;
+    }
     .stAppDeployButton {
         visibility: hidden;
         display: none;
     }
+    .st-emotion-cache-hzo1qh {
+        top: 11px;
+    }
+    .st-emotion-cache-6qob1r {
+        border-right: 1px solid grey;
+    }
+    .stSidebar {
+        width: 220px;
+        background-color: rgb(25 29 37);
+    }
+    .st-emotion-cache-kgpedg {
+        align-items: center;
+        padding: 1rem 1.5rem 1.5rem 1rem;
+    }
+    .st-emotion-cache-13lvdqn {
+        height: 2rem;
+    }
+    .st-emotion-cache-1p2n2i4 {
+        position: relative;
+    }
     </style>
     """, unsafe_allow_html=True
 )
-st.title('🎈 Ticker Details')
+st.title('Ticker Details')
 
 # Get ticker from query params
 ticker = st.query_params["name"]
@@ -69,10 +100,10 @@ if ticker:
         """, unsafe_allow_html=True)
     st.markdown(f"""
         <style>
-        .st-cb {{
+        .st-c6 > .st-cb {{
             background-color: {sentiment_color} !important;
         }}
-        .st-cr {{
+        .st-c6 > .st-cr {{
             background-color: {sentiment_color} !important;
         }}
         </style>
