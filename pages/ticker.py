@@ -19,7 +19,7 @@ with st.sidebar:
                 Home
             </a>
             <a class="sidebar-url" href="http://localhost:8501/analysis" target="_self" style="text-decoration: none; color: white; width: 100%;">
-                Personal Analysis
+                Analysis
             </a>
             </div>
             """,
