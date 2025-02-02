@@ -3,15 +3,7 @@ import streamlit as st
 from openai import OpenAI
 
 def chatbot(system_prompt, conversation_messages):
-    """
-    Takes:
-      - system_prompt (str): the system instructions
-      - conversation_messages (list[dict]): each dict has "role" and "content"
-    
-    Returns:
-      - final_text (str): The entire assistant response from streaming, 
-        so the caller can display it wherever desired.
-    """
+  
     DEV_MODEL = "gpt-4o-mini"
 
     client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
