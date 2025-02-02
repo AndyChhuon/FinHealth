@@ -1,25 +1,74 @@
 # 📦 Streamlit App Starter Kit 
+
+# Project Setup
+
+## Prerequisites
+
+Ensure you have Python installed on your system. You can download the latest version from [python.org](https://www.python.org/downloads/).
+
+## Setting Up the Environment
+
+It is recommended to use a virtual environment to manage dependencies. Follow these steps to set up and install the required packages:
+
+### 1. Create a Virtual Environment
+
+**On macOS/Linux:**
+```sh
+python3 -m venv venv
 ```
-⬆️ (Replace above with your app's name)
+
+**On Windows:**
+```sh
+python -m venv venv
 ```
 
-Description of the app ...
+### 2. Activate the Virtual Environment
 
-## Demo App
+**On macOS/Linux:**
+```sh
+source venv/bin/activate
+```
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://app-starter-kit.streamlit.app/)
+**On Windows (Command Prompt):**
+```sh
+venv\Scripts\activate
+```
 
-## GitHub Codespaces
+**On Windows (PowerShell):**
+```powershell
+venv\Scripts\Activate.ps1
+```
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/app-starter-kit?quickstart=1)
+### 3. Install Dependencies
 
-## Section Heading
+Once the virtual environment is activated, install the required dependencies:
+```sh
+pip install -r requirements.txt
+```
 
-This is filler text, please replace this with text for this section.
+## Running the Project
 
-## Further Reading
+After installing the dependencies, you can run the project using:
+```sh
+streamlit run streamlit_app.py 
+```
 
-This is filler text, please replace this with a explanatory text about further relevant resources for this repo
-- Resource 1
-- Resource 2
-- Resource 3
+## Deactivating the Virtual Environment
+
+To exit the virtual environment, simply run:
+```sh
+deactivate
+```
+
+## Additional Notes
+
+- If `pip` is outdated, upgrade it using:
+  ```sh
+  pip install --upgrade pip
+  ```
+- If you encounter issues with dependencies, try recreating the virtual environment by deleting the `venv` folder and following the setup steps again.
+
+---
+
+
+
