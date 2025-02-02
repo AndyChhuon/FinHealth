@@ -9,6 +9,7 @@ from modules.stock_graph import stock_graph, get_stock_data
 
 with st.sidebar:
     st.logo("assets/chart_icon.png")
+
     st.markdown(
             f"""
             <div style="
@@ -22,10 +23,13 @@ with st.sidebar:
             <a class="sidebar-url" href="http://localhost:8501/analysis" target="_self" style="text-decoration: none; color: white; width: 100%;">
                 Analysis
             </a>
+                <a class="sidebar-url" href="http://localhost:8501/portfolio_analysis" target="_self" style="text-decoration: none; color: white; width: 100%;">
+                Portfolio
+            </a>
             </div>
             """,
             unsafe_allow_html=True
-        )
+    )
     #st.page_link(page='http://localhost:8501/', label="Home")
     #st.page_link(page='http://localhost:8501/analysis', label="Personal Analysis")
 
@@ -103,7 +107,7 @@ if ticker:
     news_data = ticker_obj.get_news()
 
    # Buy/Sell Prediction
-    st.write("## AI Insights 🤖")
+    st.write("## AI Insights")
     st.write("#### Recommended Action")
     stock_prediction_model = StockPredictionModel(ticker)
     prediction, accuracy = stock_prediction_model.make_prediction()
