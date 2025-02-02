@@ -91,6 +91,9 @@ with st.sidebar:
             <a class="sidebar-url" href="http://localhost:8501/analysis" target="_self" style="text-decoration: none; color: white; width: 100%;">
                 Analysis
             </a>
+                <a class="sidebar-url" href="http://localhost:8501/portfolio_analysis" target="_self" style="text-decoration: none; color: white; width: 100%;">
+                Portfolio
+            </a>
             </div>
             """,
             unsafe_allow_html=True
@@ -167,7 +170,7 @@ with stock_col:
     }
 
     # Buy/Sell Prediction
-    st.write("## AI Insights 🤖")
+    st.write("## AI Insights")
     st.write("#### Recommended Action")
     stock_prediction_model = StockPredictionModel(st.session_state.ticker if st.session_state.ticker else "AMZN")
     prediction, accuracy = stock_prediction_model.make_prediction()

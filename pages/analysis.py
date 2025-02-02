@@ -2,7 +2,6 @@ import streamlit as st
 
 from modules.chatbot_analysis import chatbot_analysis
 from modules.chatbot import chatbot
-
 with st.sidebar:
     st.logo("assets/chart_icon.png")
     st.markdown(
@@ -18,12 +17,13 @@ with st.sidebar:
             <a class="sidebar-url" href="http://localhost:8501/analysis" target="_self" style="text-decoration: none; color: white; width: 100%;">
                 Analysis
             </a>
+                <a class="sidebar-url" href="http://localhost:8501/portfolio_analysis" target="_self" style="text-decoration: none; color: white; width: 100%;">
+                Portfolio
+            </a>
             </div>
             """,
             unsafe_allow_html=True
-        )
-    #st.page_link(page='http://localhost:8501/', label="Home")
-    #st.page_link(page='http://localhost:8501/analysis', label="Personal Analysis")
+    )
 
 st.markdown(
     r"""
