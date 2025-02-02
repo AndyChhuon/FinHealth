@@ -1,3 +1,7 @@
 streamlit>=1.26.0
 yfinance==0.2.52
 nltk
+st_pages
+pytz
+ta
+plotly

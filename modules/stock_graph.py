@@ -53,7 +53,7 @@ def get_interval(start_date: date, end_date: date) -> str:
         return '1wk'
 
 def stock_graph(symbol: str, start: date, end: date):
-    st.title("Stock Graph")
+    # st.title("Stock Graph")
 
     interval = get_interval(start_date=start, end_date=end)
     print(interval)
