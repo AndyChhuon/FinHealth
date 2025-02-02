@@ -65,11 +65,13 @@ if ticker:
             <span>{"<b style='font-size: 1.5em;'>😊 Positive</b>" if sentiment == 'Positive' else "😊 Positive"}</span>
         </div>
         """, unsafe_allow_html=True)
-
     st.markdown(f"""
         <style>
         .st-cb {{
-            background-color: {sentiment_color};
+            background-color: {sentiment_color} !important;
+        }}
+        .st-cr {{
+            background-color: {sentiment_color} !important;
         }}
         </style>
         """, unsafe_allow_html=True)
