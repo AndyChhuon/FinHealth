@@ -6,11 +6,14 @@ from datetime import datetime, timedelta
 # Additional imports for news and sentiment
 import yfinance as yf
 from services.sentimentAnalyzer import SentimentAnalyzer
+from modules.stock_graph import get_stock_data
 
 from services.yahoofinance import YahooFinance
 from modules.chatbot import chatbot
 from modules.stock_graph import stock_graph
-from st_pages import add_page_title, get_nav_from_toml
+from services.sentimentAnalyzer import SentimentAnalyzer
+import yfinance as yf
+# from st_pages import add_page_title, get_nav_from_toml
 
 st.set_page_config(layout="wide")
 
@@ -94,6 +97,9 @@ with stock_col:
         "AVGO"
     ]
 
+    if "ticker" not in st.session_state:
+        st.session_state.ticker = "AMZN"
+
     # Initialize search input field
     search_query = st.text_input("Search for a stock", "")
 
@@ -118,24 +124,18 @@ with stock_col:
         ]
         if matching_stocks:
             selected_stock = st.selectbox("Select a stock", matching_stocks)
-            st.link_button(
-                "Go",
-                url=f"/ticker?name={company_tickers[selected_stock]}&startDate={start_date}&endDate={end_date}"
-            )
+            # st.link_button(
+            #     "Go",
+            #     url=f"/ticker?name={company_tickers[selected_stock]}&startDate={start_date}&endDate={end_date}"
+            # )
+
+            if st.button("Go"):
+                st.session_state.ticker = company_tickers[selected_stock]
 
     # Example display of a default graph (AAPL)
-    stock_graph("AAPL", start_date, end_date)
+    stock_graph(st.session_state.ticker, start_date, end_date)
 
-    # Optional function to display stock data
-    def display_stock_data(ticker):
-        yf_service = YahooFinance()
-        stock_data = yf_service.get_stock_data(
-            ticker,
-            start=start_date.strftime('%Y-%m-%d'),
-            end=end_date.strftime('%Y-%m-%d')
-        )
-        st.write(f"## {ticker} Stock Data")
-        st.line_chart(stock_data['Close'])
+
 
     # Fetch data for all top companies once
     yf_service = YahooFinance()
@@ -148,7 +148,49 @@ with stock_col:
         for company in top_companies
     }
     # Include the chatbot
-    chatbot()
+    # Fetch news regarding data and display
+    ticker_obj = yf.Ticker(st.session_state.ticker)
+    news_data = ticker_obj.get_news()
+    st.write(f"## {st.session_state.ticker} News")
+
+    #Fetch stock data
+    stock_data = get_stock_data(st.session_state.ticker, start=start_date, end=end_date, interval="1d")
+
+    # Sentiment analysis
+    st.write("## Sentiment Analysis")
+    sentiment_analyzer = SentimentAnalyzer()
+    sentiment = sentiment_analyzer.analyze_sentiment_from_json(news_data)
+
+    if sentiment == 'Positive':
+        sentiment_score = 1.0
+        sentiment_color = "green"
+    elif sentiment == 'Neutral':
+        sentiment_score = 0.5
+        sentiment_color = "yellow"
+    else:
+        sentiment_score = 0.1
+        sentiment_color = "red"
+
+    st.markdown(f"""
+        <div style="display: flex; justify-content: space-between;">
+            <span>{"<b style='font-size: 1.5em;'>😢 Negative</b>" if sentiment == 'Negative' else "😢 Negative"}</span>
+            <span>{"<b style='font-size: 1.5em;'>😐 Neutral</b>" if sentiment == 'Neutral' else "😐 Neutral"}</span>
+            <span>{"<b style='font-size: 1.5em;'>😊 Positive</b>" if sentiment == 'Positive' else "😊 Positive"}</span>
+        </div>
+        """, unsafe_allow_html=True)
+    st.markdown(f"""
+        <style>
+        .st-c6 > .st-cb {{
+            background-color: {sentiment_color} !important;
+        }}
+        .st-c6 > .st-cr {{
+            background-color: {sentiment_color} !important;
+        }}
+        </style>
+        """, unsafe_allow_html=True)
+    st.progress(sentiment_score)
+
+    chatbot(f"Answer my questions based on the {st.session_state.ticker} stock data given here: {stock_data} and news data given here: {news_data}")
 
 # ------------------------------
 # RIGHT COLUMN: Display "cards" for top companies, THEN news
@@ -215,12 +257,7 @@ with detail_col:
     # ----------------------------------
     st.header("Latest News")
 
-    # For demonstration, we pick a default ticker
-    default_ticker = "AAPL"
-    ticker_obj = yf.Ticker(default_ticker)
-    news_data = ticker_obj.get_news()
 
-    # Custom CSS for the news display
     # Custom CSS for the news display
     st.markdown(
         """
