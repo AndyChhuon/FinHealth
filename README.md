@@ -1,4 +1,14 @@
-# 📦 Streamlit App Starter Kit 
+# FinHealth 
+
+Our objective was to build a tool capable of helping its users research and in deciding whether or not to invest in a certain stock. 
+This was done by:
+  - Visualizing the data in a detailed and easy-to-digest graph
+  - Including a model prediction capable of telling us weather to buy, sell or hold.
+  - Including a sentiment analysis model which takes the news related to the stock and tells whether they are positive, neutral or negative
+    
+![image](https://github.com/user-attachments/assets/2de56b83-57c2-4962-aecf-6dcce13f861c)
+
+![image](https://github.com/user-attachments/assets/0ca27daf-af50-4f3e-90fe-d76f224429ef)
 
 # Project Setup
 
