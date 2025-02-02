@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from services.yahoofinance import YahooFinance
 import json
 from modules.chatbot import chatbot
+from modules.stock_graph import stock_graph
 
 st.markdown(
     r"""
@@ -60,3 +61,4 @@ for i, company in enumerate(top_companies):
 
 
 chatbot()
+stock_graph("AAPL", "2024-01-01", "2024-02-01")
