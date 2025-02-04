@@ -41,8 +41,8 @@ We wanted to empower individuals to make informed financial decisions and better
 
 ## 🎯 Accomplishments  
 ✅ **Built a fully functional MVP** in **under 24 hours**, with **little to no sleep**.  
-✅ Designed, implemented, and **iteratively improved** a **classification model to give good, accurate buy/sell/hold recommendations**. 
-✅ Built a beautiful **candlestick chart UI** to display stock prices, using Streamlit
+✅ Designed, implemented, and **iteratively improved** a **classification model to give good, accurate buy/sell/hold recommendations**.  
+✅ Built a beautiful **candlestick chart UI** to display stock prices, using Streamlit  
 ✅ **Won Best Use of Streamlit out of 800+ participants** at **ConUHacks IX**!  
 
 ---
