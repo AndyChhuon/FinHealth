@@ -8,8 +8,10 @@ FinHealth won **Best Use of Streamlit out of 800+ participants** at **ConUHacks 
 We employed Streamlit <img src="https://user-images.githubusercontent.com/7164864/217935870-c0bc60a3-6fc0-4047-b011-7b4c59488c91.png" alt="Streamlit logo" style="width:20px;"></img> to quickly build a web app that interacts with our **2 machine learning models**, and to display stock prices onto a candlestick chart 📈 All built in under **24 hours**! 🎉  The Devpost can be found here: https://devpost.com/software/budget-buddy-b42oin
 
 ---
-## 🎥 Video Demo
-[![Watch the video](https://i9.ytimg.com/vi_webp/KpJxbmD_Qhc/mqdefault.webp?v=67a2880c&sqp=CISQir0G&rs=AOn4CLD-hXJttv94-vBM8JTI4ILURAC0Xw)](https://youtu.be/KpJxbmD_Qhc)
+## [🎥 Video Demo](https://youtu.be/KpJxbmD_Qhc)
+<a href="https://youtu.be/KpJxbmD_Qhc">
+  <img src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/255/626/datas/gallery.jpg" width="500">
+</a>  
 
 ## 🚀 Inspiration  
 We wanted to empower individuals to make informed financial decisions and better understand their investment strategies. Inspired by the complexity of stock data, ever-changing market news, and the challenges of personal financial planning, we built FinHealth to centralize these insights in a user-friendly platform.
